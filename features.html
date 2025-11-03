@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Features • ODC System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+
+  <!-- Mentor AI Chat -->
+<div id="mentor-launcher" class="mentor-launcher" aria-label="Open Mentor AI chat" title="Mentor AI">
+  <i class="fa-solid fa-message"></i>
+</div>
+
+<div id="mentor-panel" class="mentor-panel" aria-hidden="true">
+  <div class="mentor-header">
+    <div class="d-flex align-items-center gap-2">
+      <i class="fa-solid fa-robot"></i>
+      <span class="fw-semibold">Mentor AI</span>
+    </div>
+    <button id="mentor-close" class="btn btn-sm btn-outline-light">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <div id="mentor-body" class="mentor-body">
+    <div class="mentor-msg mentor-msg-bot">
+      <div class="bubble">
+          Hi! Ask anything about this website.
+      </div>
+    </div>
+  </div>
+
+  <div class="mentor-input">
+    <input id="mentor-input" type="text" class="form-control" placeholder="Type a message and press Enter…"/>
+    <button id="mentor-send" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="fa-solid fa-broom"></i> Data Cleaning System</a>
+      <div id="navContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+  <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+  <li class="nav-item"><a class="nav-link" href="workspace.html">Workspace</a></li>
+  <li class="nav-item"><a class="nav-link" href="features.html">Features</a></li>
+  <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+  <li class="nav-item"><a class="nav-link" href="login.html"><i class="fa-solid fa-lock me-1"></i>Admin</a></li>
+</ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="container">
+      <h1 class="mb-2">Features</h1>
+      <p class="mb-0">Everything needed to clean and normalize e‑commerce product data.</p>
+    </div>
+  </header>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100 feature-card">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa-solid fa-cloud-arrow-up me-2"></i>CSV Upload & Preview</h5>
+              <p>Upload large CSVs, see progress, and basic stats before cleaning.</p>
+              <ul class="mb-0">
+                <li>File validation and size hints</li>
+                <li>Progress indicators and status</li>
+                <li>Hooks for backend APIs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div id="pipeline" class="col-md-6">
+          <div class="card h-100 feature-card">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa-solid fa-wand-magic-sparkles me-2"></i>Cleaning Pipeline</h5>
+              <ul class="mb-0">
+                <li>Deduplication and canonicalization</li>
+                <li>Unit standardization and attribute repair</li>
+                <li>Ontology-driven reconciliation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="card feature-card">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fa-solid fa-diagram-project me-2"></i>Ontology & Taxonomy</h5>
+              <p>Define brand aliases, category taxonomy, and attribute vocabularies to harmonize data across sources.</p>
+              <p class="mb-0">Designed to integrate JSON/RDF ontologies and rule sets.</p>
+              <ul class="mb-0">
+      <li>RDF/OWL: Classes and properties to define products, brands, categories, and attributes with constraints and inheritance.</li>
+      <li>SHACL: Shape constraints to validate required fields, value ranges, and unit patterns for product specifications.</li>
+      <li>SKOS: Controlled vocabularies for category hierarchies and brand aliases with preferred and alternate labels.</li>
+      <li>SPARQL: Query rules for lookups, alias resolution, and reconciliation during cleaning and reporting.</li>
+    </ul>
+    <p class="mt-3 mb-0">Usage: map raw values to canonical labels, enforce shapes for completeness, detect conflicts, and generate consistent outputs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <a class="btn btn-primary" href="login.html"><i class="fa-solid fa-right-to-bracket me-2"></i>Try it</a>
+        <a class="btn btn-outline-secondary ms-2" href="index.html">Back Home</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="app-footer">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span>© 2025 Data Cleaning System team number </span>
+      <a href="about.html" class="link-light text-decoration-none">About</a>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

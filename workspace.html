@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Workspace • ODC System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+  <style>
+    /* Polished workspace tweaks */
+    .ws-toolbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 999px; font-size: 12px;
+      border: 1px solid rgba(0,0,0,.06); background: #f8fafc; color: #5b6b7b;
+    }
+    .chip i { opacity: .8; }
+    .muted { color: #6c757d; }
+    .ws-guidelines li { margin-bottom: 6px; }
+    .ws-card { border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.06); }
+    .ws-table-note { font-size: 12px; color: #6c757d; }
+  </style>
+</head>
+<body>
+
+  <!-- Mentor AI Chat -->
+  <div id="mentor-launcher" class="mentor-launcher" aria-label="Open Mentor AI chat" title="Mentor AI">
+    <i class="fa-solid fa-message"></i>
+  </div>
+  <div id="mentor-panel" class="mentor-panel" aria-hidden="true">
+    <div class="mentor-header">
+      <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-robot"></i>
+        <span class="fw-semibold">Mentor AI</span>
+      </div>
+      <button id="mentor-close" class="btn btn-sm btn-outline-light">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div id="mentor-body" class="mentor-body">
+      <div class="mentor-msg mentor-msg-bot">
+        <div class="bubble">Hi! Ask anything about this website.</div>
+      </div>
+    </div>
+    <div class="mentor-input">
+      <input id="mentor-input" type="text" class="form-control" placeholder="Type a message and press Enter…"/>
+      <button id="mentor-send" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="fa-solid fa-broom"></i> Data Cleaning System</a>
+      <div id="navContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="workspace.html">Workspace</a></li>
+          <li class="nav-item"><a class="nav-link" href="features.html">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html"><i class="fa-solid fa-user me-1"></i>Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Top header -->
+  <header class="page-header">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div>
+          <h1 class="mb-1">Workspace</h1>
+          <p class="mb-0">Upload a CSV, run the pipeline, and review results with ontology guidance.</p>
+        </div>
+        <div class="text-end">
+          <a href="features.html" class="btn btn-outline-light"><i class="fa-solid fa-list-check me-2"></i>View Features</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <section class="py-4">
+    <div class="container">
+      <div class="card tab-shell ws-card">
+        <div class="card-header bg-white border-0 pb-0">
+          <ul class="nav nav-tabs professional-tabs" id="wsTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="u-upload-tab" data-bs-toggle="tab" data-bs-target="#u-upload" type="button" role="tab">
+                <i class="fa-solid fa-cloud-arrow-up me-2"></i>Upload
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="u-cleaning-tab" data-bs-toggle="tab" data-bs-target="#u-cleaning" type="button" role="tab">
+                <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Cleaning
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="u-results-tab" data-bs-toggle="tab" data-bs-target="#u-results" type="button" role="tab">
+                <i class="fa-solid fa-chart-column me-2"></i>Results
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="u-ontology-tab" data-bs-toggle="tab" data-bs-target="#u-ontology" type="button" role="tab">
+                <i class="fa-solid fa-diagram-project me-2"></i>Ontology
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card-body">
+          <div class="tab-content pt-2">
+            <!-- Upload -->
+            <div class="tab-pane fade show active" id="u-upload" role="tabpanel" aria-labelledby="u-upload-tab">
+              <div class="ws-toolbar mb-3">
+                <span class="chip"><i class="fa-solid fa-circle text-success"></i> Ready to upload</span>
+                <span class="muted small">Accepted: .csv • Tip: headers like id, name, brand, category</span>
+              </div>
+              <div class="row g-4 align-items-start">
+                <div class="col-lg-7">
+                  <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                      <h5 class="card-title mb-2">Upload CSV</h5>
+                      <div class="progress mt-3" style="height: 20px;">
+                        <div id="u-uploadProgress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width:0%">0%</div>
+                      </div>
+                      <div id="u-uploadStatus" class="mt-2 text-muted">Waiting for file…</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                      <h6 class="card-title mb-2">Guidelines</h6>
+                      <ul class="mb-0 small text-muted ws-guidelines">
+                        <li>Include a single header row; encode as UTF‑8.</li>
+                        <li>Use consistent units (e.g., cm, kg); these will be standardized.</li>
+                        <li>No server upload in this demo; processing is simulated locally.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cleaning -->
+            <div class="tab-pane fade" id="u-cleaning" role="tabpanel" aria-labelledby="u-cleaning-tab">
+              <div class="ws-toolbar mb-3">
+                <span class="chip"><i class="fa-solid fa-gear"></i> Pipeline idle</span>
+                <span class="muted small">Steps: validate → normalize → units → dedup → reconcile</span>
+              </div>
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                    <div>
+                      <h5 class="card-title mb-1">Run Cleaning Pipeline</h5>
+                      <p class="small text-muted mb-0">Validation, normalization, unit standardization, deduplication, and reconciliation.</p>
+                    </div>
+                    <button id="u-startCleaningBtn" class="btn btn-success btn-lg">
+                      <i class="fa-solid fa-play me-2"></i>Start
+                    </button>
+                  </div>
+                  <div class="progress mt-3" style="height: 20px;">
+                    <div id="u-cleaningProgress" class="progress-bar bg-success" role="progressbar" style="width:0%">0%</div>
+                  </div>
+                  <div id="u-cleaningStatus" class="mt-2 text-muted">Idle.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Results -->
+            <div class="tab-pane fade" id="u-results" role="tabpanel" aria-labelledby="u-results-tab">
+              <div class="ws-toolbar mb-3">
+                <span class="chip"><i class="fa-solid fa-database"></i> No dataset selected</span>
+                <span class="muted small">Run the pipeline to populate metrics and preview.</span>
+              </div>
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <div class="stat-tile kpi-tile">
+                    <div class="stat-value" id="u-statProcessed">0</div>
+                    <div class="stat-label">Products processed</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-tile kpi-tile">
+                    <div class="stat-value" id="u-statDuplicates">0</div>
+                    <div class="stat-label">Duplicates removed</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-tile kpi-tile">
+                    <div class="stat-value" id="u-statStandardized">0</div>
+                    <div class="stat-label">Attributes standardized</div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+                        <h6 class="mb-0">Preview</h6>
+                        <button id="u-downloadBtn" class="btn btn-outline-primary btn-sm">
+                          <i class="fa-solid fa-file-arrow-down me-2"></i>Download cleaned CSV
+                        </button>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-sm table-hover align-middle mb-0">
+                          <thead class="table-light">
+                            <tr>
+                              <th style="width:80px;">ID</th>
+                              <th>Name</th>
+                              <th>Brand</th>
+                              <th>Category</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="text-muted">
+                              <td colspan="4">Run the pipeline to see a sample row appear here.</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <p class="ws-table-note mt-2 mb-0">This preview is illustrative; connect a backend to render real results.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ontology -->
+            <div class="tab-pane fade" id="u-ontology" role="tabpanel" aria-labelledby="u-ontology-tab">
+              <div class="ws-toolbar mb-3">
+                <span class="chip"><i class="fa-solid fa-diagram-project"></i> Reference</span>
+                <span class="muted small">RDF/OWL • SHACL • SKOS • SPARQL</span>
+              </div>
+              <div class="card shadow-sm">
+                <div class="card-body">
+                  <h5 class="card-title mb-2">Ontology & Taxonomy</h5>
+                  <p class="text-muted small mb-3">RDF/OWL for schema, SHACL for shapes, SKOS for vocabularies, and SPARQL for reconciliation.</p>
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <div class="p-3 border rounded-3 h-100">
+                        <h6 class="mb-2"><i class="fa-solid fa-cubes-stacked me-2"></i>RDF/OWL</h6>
+                        <ul class="small text-muted mb-0">
+                          <li>Define Product, Brand, Category classes and semantic properties.</li>
+                          <li>Use domains/ranges and subclassing to model inheritance.</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 border rounded-3 h-100">
+                        <h6 class="mb-2"><i class="fa-solid fa-shield-halved me-2"></i>SHACL</h6>
+                        <ul class="small text-muted mb-0">
+                          <li>Enforce required fields, value types, and unit patterns.</li>
+                          <li>Validate category membership and attribute ranges.</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 border rounded-3 h-100">
+                        <h6 class="mb-2"><i class="fa-solid fa-sitemap me-2"></i>SKOS</h6>
+                        <ul class="small text-muted mb-0">
+                          <li>Maintain taxonomy with broader/narrower relations.</li>
+                          <li>Manage brand aliases with prefLabel/altLabel.</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3 border rounded-3 h-100">
+                        <h6 class="mb-2"><i class="fa-solid fa-magnifying-glass-chart me-2"></i>SPARQL</h6>
+                        <ul class="small text-muted mb-0">
+                          <li>Resolve aliases to canonical IRIs.</li>
+                          <li>Fetch ancestors and detect duplicates.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="small text-muted mt-3 mb-0">Connect a triplestore or API to enable real validations and lookups.</p>
+                </div>
+              </div>
+            </div>
+          </div><!-- /tab-content -->
+        </div><!-- /card-body -->
+      </div><!-- /card -->
+    </div>
+  </section>
+
+  <footer class="app-footer">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span>© 2025 Data Cleaning System team number</span>
+      <a href="about.html" class="link-light text-decoration-none">About</a>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
